@@ -16,3 +16,4 @@ export interface API {
   content: Array<Tread>
 }
 
+export const BASE_URL = ""

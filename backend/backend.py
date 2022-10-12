@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, abort
 from flask import request
 import json
 from flask_cors import CORS, cross_origin
@@ -22,25 +22,25 @@ def hello_world():
     global perepiski
     return perepiski
 
-@app.route("/threads", methods = ['POST', 'GET'])
+@app.route("/thread/<int:thread_id>", methods = ['GET'])
 @cross_origin()
-def get_thread():
+def get_thread(thread_id):
     global perepiski
+    for thread in perepiski["content"]:
+        if thread["thread_id"] == thread_id:
+            return thread
+    abort(404)
 
+@app.route("/threads", methods = ['POST', 'GET'])
+def get_threads():
+    global perepiski
     if request.method == 'POST':
         perepiski["content"].append(request.values.get('thread'))
         with open("perepiski.json", "w") as f:
             f.write(json.dumps(perepiski))
         return {"OK": 200}
     elif request.method == 'GET':
-        thread_id = request.args.get('thread_id', default = 1, type = int)
-        if thread_id == -1:
-            return perepiski
-        for thread in perepiski["content"]:
-            if thread["thread_id"] == thread_id:
-                return thread
-        return ""
-
+        return perepiski
 
 @app.route("/thread/comment", methods = ['POST'])
 @cross_origin()

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import TailwindCss from './lib/TailwindCSS.svelte';
-    import Thread from './lib/thread.svelte';
-    import Footer from './lib/footer.svelte';
+    import TailwindCss from './src/lib/TailwindCSS.svelte';
+    import Thread from './src/lib/thread.svelte';
+    import Footer from './src/lib/footer.svelte';
     import { onMount } from "svelte";
-    import type {API, Tread, Message} from "./lib/api_interface.js"; 
+    import type {API, Tread, Message} from "./src/lib/api_interface.js"; 
 
     let api : API;
     let clean_threads = [] as Array<Tread>
