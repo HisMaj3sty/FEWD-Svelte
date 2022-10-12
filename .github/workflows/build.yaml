@@ -22,7 +22,7 @@ jobs:
       - name: 'Build container'
         uses: docker/build-push-action@v3
         with:
-          context: "{{defaultContext}}:backend"
+          context: "{{defaultContext}}:frontend"
           push: true
           tags: 'ghcr.io/hismaj3sty/fewd-svelte-front:ref-${{ github.sha }}'
           cache-from: type=registry,ref=ghcr.io/hismaj3sty/fewd-svelte-front:buildcache

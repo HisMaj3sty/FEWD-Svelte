@@ -17,7 +17,7 @@ spec:
         - name: perepiski-back
           image: ghcr.io/hismaj3sty/fewd-svelte-back
           ports: 
-          - containerPort: 80
+          - containerPort: 81
             hostPort: 8081
         - name: perepiski-front
           image: ghcr.io/hismaj3sty/fewd-svelte-front
