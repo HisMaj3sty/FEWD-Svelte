@@ -1,0 +1,71 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Deploy
+
+jobs:
+  build-front:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: 'Build container'
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: 'ghcr.io/hismaj3sty/fewd-svelte-front:ref-${{ github.sha }}'
+          cache-from: type=registry,ref=ghcr.io/hismaj3sty/fewd-svelte-front:buildcache
+          cache-to: type=registry,ref=ghcr.io/hismaj3sty/fewd-svelte-front:buildcache,mode=max
+
+  build-back:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: 'Build container'
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: 'ghcr.io/hismaj3sty/fewd-svelte-back:ref-${{ github.sha }}'
+          cache-from: type=registry,ref=ghcr.io/hismaj3sty/fewd-svelte-back:buildcache
+          cache-to: type=registry,ref=ghcr.io/hismaj3sty/fewd-svelte-back:buildcache,mode=max
+
+  deploy-prod:
+    needs: [build-front, build-back] 
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: https://svelt.in.shadowy.space/
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
+      - uses: Azure/k8s-deploy@v3.1
+        with:
+          namespace: 'default'
+          manifests: |
+            deployment
+          images: |
+            ghcr.io/hismaj3sty/fewd-svelte-front:ref-${{ github.sha }}
+            ghcr.io/hismaj3sty/fewd-svelte-back:ref-${{ github.sha }}
