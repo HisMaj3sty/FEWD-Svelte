@@ -7,20 +7,22 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  defaultBackend: 
-    service:
-      name: perepiski
-      port:
-        number: 8080
   rules:
     - host: svelt.in.shadowy.space
       http:
-        paths:              
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: perepiski
+                port:
+                  number: 8080
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: perepiski-api
+                name: perepiski
                 port:
                   number: 8081
   tls:
