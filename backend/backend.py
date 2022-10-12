@@ -16,13 +16,13 @@ with open("perepiski.json", "r") as f:
 
 subscriptions={}
 
-@app.route("/")
+@app.route("/api")
 @cross_origin()
 def hello_world():
     global perepiski
     return perepiski
 
-@app.route("/thread/<int:thread_id>", methods = ['GET'])
+@app.route("/api/thread/<int:thread_id>", methods = ['GET'])
 @cross_origin()
 def get_thread(thread_id):
     global perepiski
@@ -31,7 +31,7 @@ def get_thread(thread_id):
             return thread
     abort(404)
 
-@app.route("/threads", methods = ['POST', 'GET'])
+@app.route("/api/threads", methods = ['POST', 'GET'])
 def get_threads():
     global perepiski
     if request.method == 'POST':
@@ -42,7 +42,7 @@ def get_threads():
     elif request.method == 'GET':
         return perepiski
 
-@app.route("/thread/comment", methods = ['POST'])
+@app.route("/api/thread/comment", methods = ['POST'])
 @cross_origin()
 def comment_thread():
     global perepiski
@@ -58,7 +58,7 @@ def comment_thread():
 
 
 
-@app.route("/thread/subscribe", methods = ['POST'])
+@app.route("/api/thread/subscribe", methods = ['POST'])
 @cross_origin()
 def subscribe_to_thread():
     if request.method == 'POST':
