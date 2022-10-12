@@ -23,7 +23,7 @@
         {text}
     </p>
     <div class="flex flex-row">
-        <img class= "h-10 w-10 ml-20 mb-8" src="/src/assets/doc_icon.png" alt="Link to document">
+        <img class= "h-10 w-10 ml-20 mb-8" src="/doc_icon.png" alt="Link to document">
         <a class="text-sm font-sans font-medium text-zinc-600" href={document_link}> Original Document</a>
     </div>
 </div>
