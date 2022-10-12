@@ -1,0 +1,43 @@
+{
+	"content": [{
+		"thread_id": 0,
+		"thread_name": "The scholarship issue",
+		"thread_content": [{
+				"id": 1,
+				"level":0,
+				"avatar_path": "su_avatar.jpg",
+				"author_name": "Student Union",
+				"date": "10.12.2021",
+				"document_id": -1,
+				"text": "We've seen that you have taken our scholarship. Can you give it back please?"
+			},
+			{
+				"id": 2,
+				"level":1,
+				"avatar_path": "319_avatar.jpg",
+				"author_name": "Administration",
+				"date": "20.12.2021",
+				"document_id": -1,
+				"text": "No can do. We have big financial problems -- we do not know where to spend that much money."
+			},
+			{
+				"id": 3,
+				"level":3,
+				"avatar_path": "su_avatar.jpg",
+				"author_name": "Student Union",
+				"date": "20.12.2021",
+				"document_id": -1,
+				"text": "Maybe you can give it to the students in a form of a scholarship then?"
+			},
+            {
+				"id": 4,
+				"level":4,
+				"avatar_path": "319_avatar.jpg",
+				"author_name": "Administration",
+				"date": "22.12.2021",
+				"document_id": -1,
+				"text": "Nah, we have better things to spend our money on. Like conferences or smth.."
+			}
+		]
+	}]
+}
