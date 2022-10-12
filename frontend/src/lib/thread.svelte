@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { assets } from '$app/paths';
     import Heading from '../lib/heading.svelte'
     import type {Message} from "./api_interface.js"; 
 
@@ -50,13 +51,19 @@
     );
     }
 
+    import pic_319 from "../assets/319_avatar.jpg"
+    import pic_su from "../assets/su_avatar.jpg"
+  import { get } from 'svelte/store';
+
+    const string_to_pic = new Map([["su_avatar.jpg",pic_su], ["319_avatar.jpg",pic_319]])
+
 </script>
 
 <div>
     <a class="text-2xl font-sans font-bold text-zinc-900 underline mt-4 ml-4" href={"/thread/"+thread_id}>{thread_name}</a>
     {#each thread_content as {level, avatar_path, author_name, date, document_id, text}}
         <div class="ml-{level*20}">
-            <Heading avatar_path={"/src/assets/" + avatar_path} name={author_name} date={date} document_link={"#"} text={text}/>
+            <Heading avatar_path={string_to_pic.get(avatar_path)} name={author_name} date={date} document_link={"#"} text={text}/>
         </div>
     {/each}
     <div class="ml-4">
